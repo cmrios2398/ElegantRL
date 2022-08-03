@@ -90,7 +90,7 @@ def train_and_evaluate(args):
 
     agent.state = env.reset()
     if args.if_off_policy:
-        trajectory, step = agent.explore_env(env, args.num_seed_steps * args.num_steps_per_episode, True)
+        trajectory, step = agent.explore_one_env(env, args.num_seed_steps * args.num_steps_per_episode, True)
         buffer.update_buffer(trajectory)
         steps += step
 
@@ -104,7 +104,7 @@ def train_and_evaluate(args):
 
     if_train = True
     while if_train:
-        trajectory, step = agent.explore_env(env, horizon_len, False)
+        trajectory, step = agent.explore_one_env(env, horizon_len, False)
         steps += step
         if if_off_policy:
             buffer.update_buffer(trajectory)
@@ -184,14 +184,14 @@ class PipeWorker:
         '''loop'''
         target_step = args.target_step
         if args.if_off_policy:
-            trajectory = agent.explore_env(env, args.target_step)
+            trajectory = agent.explore_one_env(env, args.target_step)
             self.pipes[worker_id][0].send(trajectory)
         del args
 
         while True:
             act_dict = self.pipes[worker_id][0].recv()
             agent.act.load_state_dict(act_dict)
-            trajectory = agent.explore_env(env, target_step)
+            trajectory = agent.explore_one_env(env, target_step)
             self.pipes[worker_id][0].send(trajectory)
 
 
