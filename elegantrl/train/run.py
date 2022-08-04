@@ -6,9 +6,9 @@ import numpy as np
 import torch
 from elegantrl.agents import AgentBase
 
-from elegantrl.config import build_env, Arguments
-from elegantrl.evaluator import Evaluator
-from elegantrl.replay_buffer import ReplayBuffer, ReplayBufferList
+from elegantrl.train.config import build_env, Arguments
+from elegantrl.train.evaluator import Evaluator
+from elegantrl.train.replay_buffer import ReplayBuffer, ReplayBufferList
 
 """[ElegantRL.2022.01.01](github.com/AI4Fiance-Foundation/ElegantRL)"""
 
