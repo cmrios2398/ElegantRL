@@ -8,7 +8,7 @@ from pprint import pprint
 
 
 class Arguments:
-    def __init__(self, agent_class=None, env=None, env_func=None, env_args: dict = None):
+    def __init__(self, agent=None, env=None, env_func=None, env_args: dict = None):
         self.env = env  # the environment for training
         self.env_func = env_func  # env = env_func(*env_args)
         self.env_args = env_args  # env = env_func(*env_args)
@@ -21,7 +21,7 @@ class Arguments:
         self.if_discrete = self.update_attr('if_discrete')  # discrete or continuous action space
         self.target_return = self.update_attr('target_return')  # target average episode return
 
-        self.agent_class = agent_class  # the class of DRL algorithm
+        self.agent = agent  # the class of DRL algorithm
         self.net_dim = 2 ** 8  # the network width
         self.num_layer = 3  # layer number of MLP (Multi-layer perception, `assert layer_num>=2`)
         self.horizon_len = 1  # number of steps per exploration
@@ -78,7 +78,7 @@ class Arguments:
 
         '''auto set'''
         if self.cwd is None:
-            self.cwd = f'./{self.env_name}_{self.agent_class.__name__[5:]}_{self.learner_gpus}'
+            self.cwd = f'./{self.env_name}_{self.agent.__name__[5:]}_{self.learner_gpus}'
 
         '''remove history'''
         if self.if_remove is None:
@@ -100,7 +100,7 @@ class Arguments:
         return attribute_value
 
     def if_off_policy(self) -> bool:
-        name = self.agent_class.__name__
+        name = self.agent.__name__
         if_off_policy = all((name.find('PPO') == -1, name.find('A2C') == -1))
         return if_off_policy
 
