@@ -30,7 +30,7 @@ class AgentDQN(AgentBase):  # [ElegantRL.2022.04.18]
         self.act.explore_rate = getattr(args, "explore_rate", 0.25)
         # Using ϵ-greedy to select uniformly random actions for exploration with `explore_rate` probability.
 
-    def explore_one_env(self, env, target_step: int) -> list:
+    def explore_env(self, env, target_step: int) -> list:
         """
         Collect trajectories through the actor-environment interaction for a **single** environment instance.
 
