@@ -4,7 +4,7 @@ import time
 
 import numpy as np
 import torch
-from elegantrl.agent import AgentBase
+from elegantrl.agents import AgentBase
 
 from elegantrl.config import build_env, Arguments
 from elegantrl.evaluator import Evaluator
